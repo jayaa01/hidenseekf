@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>for my love ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+}
+
+.container {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 25px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.hidden { display: none; }
+
+button {
+  margin-top: 15px;
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  background: white;
+  color: #ff4b6e;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover { transform: scale(1.05); }
+
+input {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  text-align: center;
+  margin-top: 15px;
+}
+
+#countdown {
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* floating hearts */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); }
+  100% { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+<h1>enter the secret code </h1>
+<p>hint: moles on my face </p>
+<input type="password" id="passwordInput">
+<br>
+<button onclick="checkPassword()">unlock </button>
+<p id="error" style="color:#fff;"></p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" class="hidden">
+
+<div id="slide1">
+<h1>happy valentine’s day my baby 💗</h1>
+<p>i made this just for you hehe</p>
+<button onclick="nextSlide(2)">continue </button>
+</div>
+
+<div id="slide2" class="hidden">
+<p>do you love me?</p>
+<button onclick="nextSlide(3)">yes always 💔</button>
+<button onclick="nextSlide(4)">maybe (pitt jaaoge dekhlo)</button>
+</div>
+
+<div id="slide3" class="hidden">
+<p>i love you more.</p>
+<p>more than words. more than distance. more than anything.</p>
+<button onclick="nextSlide(5)">there’s more jaaneman</button>
+</div>
+
+<div id="slide4" class="hidden">
+<p>wrong answer ☹️</p>
+<button onclick="nextSlide(2)">try again (and take kissi)</button>
+</div>
+
+<div id="slide5" class="hidden">
+<p>with you i feel safe.</p>
+<p>with you i feel peace.</p>
+<p>with you i feel home.</p>
+<button onclick="nextSlide(6)">next 💌</button>
+</div>
+
+<div id="slide6" class="hidden">
+<h2>our virtual date starts in:</h2>
+<div id="countdown"></div>
+<button onclick="nextSlide(7)">almost there ☹️</button>
+</div>
+
+<div id="slide7" class="hidden">
+<h1>8:15 pm today </h1>
+<p>don’t be late handsome.</p>
+<button onclick="nextSlide(8)">final surprise 😛</button>
+</div>
+
+<div id="slide8" class="hidden">
+<h1>forever yours ♾️</h1>
+<p>no matter what, it will always be you.</p>
+<p>happy valentine’s day, my love.</p>
+</div>
+
+</div>
+</div>
+
+<script>
+
+// CHANGE THIS PASSWORD
+const correctPassword = "8";
+
+function checkPassword() {
+  const input = document.getElementById("passwordInput").value;
+  if (input === correctPassword) {
+    document.getElementById("passwordScreen").classList.add("hidden");
+    document.getElementById("mainContent").classList.remove("hidden");
+  } else {
+    document.getElementById("error").innerText = "wrong code, try again 💔";
+  }
+}
+
+function nextSlide(number) {
+  let slides = document.querySelectorAll("[id^='slide']");
+  slides.forEach(slide => slide.classList.add("hidden"));
+  document.getElementById("slide" + number).classList.remove("hidden");
+}
+
+// COUNTDOWN TO 8:15 PM TODAY
+function updateCountdown() {
+  const now = new Date();
+  const target = new Date();
+  target.setHours(20,15,0,0);
+
+  if (now > target) {
+    target.setDate(target.getDate() + 1);
+  }
+
+  const diff = target - now;
+
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown").innerHTML =
+    hours + "h " + minutes + "m " + seconds + "s ";
+}
+
+setInterval(updateCountdown, 1000);
+
+// floating hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "🩷";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}, 800);
+
+</script>
+
+</body>
+</html>
